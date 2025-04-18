@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Rise and Shine</title>
+    <style>
+        body {
+            background-color: white;
+            background-image: url('/start.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #start {
+            display: block;
+            position: absolute;
+            top: 75vh;
+            height: 12vh;
+            left: 52vw;
+            width: 12vw;
+        }
+
+        #nameInput {
+            position: absolute;
+            top: 81vh;
+            left: 30vw;
+            height: 12vh;
+            width: 49vw;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 5vh;
+        }
+
+        #timeInput {
+            position: absolute;
+            top: 14vh;
+            left: 25vw;
+            height: 14vh;
+            width: 38vw;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 5vh;
+        }
+
+        #closeButton {
+            position: absolute;
+            top: 71vh;
+            left: 40.5vw;
+            height: 3vh;
+            width: 2vw;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 5px;
+            border: transparent;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        #settingsButton {
+            position: absolute;
+            top: 18vh;
+            left: 0;
+            height: 7vh;
+            width: 4vw;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 5px;
+            border: transparent;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        #settingsBox {
+            display: none;
+            position: absolute;
+            top: 29vh;
+            left: 26vw;
+            width: 53.5vw;
+            height: 43.5vh;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: none; /* Hidden by default */
+            z-index: 1000;
+        }
+
+        #testButton {
+            position: absolute;
+            top: 53vh;
+            left: 43vw;
+            height: 8vh;
+            width: 15vw;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 3.25vh;
+            cursor: pointer;
+        }
+
+        input, button {
+            color: black;
+        }
+
+        ul {
+            list-style-type: none;
+            font-size: 5vh;
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+    <script>
+        function testButton() {
+            document.getElementById('audioPlayer').play();
+            setTimeout(function (){
+                fetch('/alarm/on', {
+                    method: 'POST',
+                })
+            }, 5000)
+        }
+
+        function toggleSettings() {
+            if (document.getElementById('settingsBox').style.display == 'block') {
+                document.getElementById('settingsBox').style.display = 'none';
+            } else {
+                document.getElementById('settingsBox').style.display = 'block';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <audio controls id="audioPlayer" loop>
+        <source src="/icecreamtruck.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <input type="time" id="timeInput" value="00:00">
+
+    <input type="text" id="nameInput" placeholder="Enter name here">
+
+    <button id="testButton" onclick="testButton()">Test Alarm</button>
+
+    <button id="settingsButton" onclick="toggleSettings()"></button>
+
+    <div id="settingsBox">
+        <ul>
+            <li><input type="checkbox" id="songToggle" checked> Ice Cream Truck Song</li>
+            <li><input type="checkbox" id="lightToggle" checked> Shine Light</li>
+            <li><input type="checkbox" id="vibrateToggle" checked> Vibrate Bed</li>
+        </ul>
+    </div>
+</body>
+
+</html>
